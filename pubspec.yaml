@@ -45,6 +45,7 @@ dependencies:
   flutter_sound: ^9.2.13
   speech_to_text: ^6.1.1
   flutter_sound_record: ^3.2.1
+  audioplayers: ^4.1.0
   just_audio: ^0.9.34
 #   permission_handler: ^10.2.0
 #   url_launcher: ^6.1.11

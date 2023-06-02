@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AudioRecordScreen extends StatefulWidget {
-   AudioRecordScreen({super.key});
+  AudioRecordScreen({super.key});
 
   @override
   State<AudioRecordScreen> createState() => _AudioRecordScreenState();
@@ -14,6 +15,7 @@ class AudioRecordScreen extends StatefulWidget {
 
 class _AudioRecordScreenState extends State<AudioRecordScreen> {
   final recorder = FlutterSoundRecorder();
+  final audioPlayer = AudioPlayer();
   bool isRecorderReady = false;
 
   Future record() async {
@@ -24,8 +26,12 @@ class _AudioRecordScreenState extends State<AudioRecordScreen> {
   Future stop() async {
     if (!isRecorderReady) return;
     final path = await recorder.stopRecorder();
+    print(path);
     final audioFile = File(path!);
-    print('Recorded audio: $audioFile');
+    print('Recorded audio: ${File(path)}');
+    audioPlayer.setSourceDeviceFile(path);
+    // audioPlayer.play(path);
+    // audioPlayer.setOnPlayer();
   }
 
   @override
