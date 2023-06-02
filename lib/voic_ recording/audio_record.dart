@@ -56,41 +56,46 @@ class _AudioRecordScreenState extends State<AudioRecordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Center(
-        child: Column(
-          children: [
-            StreamBuilder<RecordingDisposition>(
-              stream: recorder.onProgress,
-              builder: (context, snapshot) {
-                final duration =
-                    snapshot.hasData ? snapshot.data!.duration : Duration.zero;
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          StreamBuilder<RecordingDisposition>(
+            stream: recorder.onProgress,
+            builder: (context, snapshot) {
+              final duration =
+                  snapshot.hasData ? snapshot.data!.duration : Duration.zero;
 
-                String twoDigits(int n) => n.toString().padLeft(5);
-                final twoDigitMinutes =
-                    twoDigits(duration.inMinutes.remainder(60));
-                final twoDigitSeconds =
-                    twoDigits(duration.inSeconds.remainder(60));
-                return Text(
+              String twoDigits(int n) => n.toString().padLeft(5);
+              final twoDigitMinutes =
+                  twoDigits(duration.inMinutes.remainder(60));
+              final twoDigitSeconds =
+                  twoDigits(duration.inSeconds.remainder(60));
+              return Center(
+                child: Text(
                   '$twoDigitMinutes:$twoDigitSeconds',
                   style: const TextStyle(
-                      fontSize: 80, fontWeight: FontWeight.bold),
-                );
-              },
+                      fontSize: 80,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: Icon(
+              recorder.isRecording ? Icons.stop : Icons.mic,
+              size: 80,
             ),
-            ElevatedButton(
-              child: Icon(
-                recorder.isRecording ? Icons.stop : Icons.mic,
-                size: 80,
-              ),
-              onPressed: () async {
-                if (recorder.isRecording) {
-                  await stop();
-                }
+            onPressed: () async {
+              if (recorder.isRecording) {
+                await stop();
+              } else {
                 await record();
-              },
-            ),
-          ],
-        ),
+              }
+              setState(() {});
+            },
+          ),
+        ],
       ),
     );
   }
