@@ -6,7 +6,7 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AudioRecordScreen extends StatefulWidget {
-  const AudioRecordScreen({super.key});
+   AudioRecordScreen({super.key});
 
   @override
   State<AudioRecordScreen> createState() => _AudioRecordScreenState();
